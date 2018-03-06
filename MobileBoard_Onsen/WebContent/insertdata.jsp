@@ -14,6 +14,8 @@ try {
 	conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:QKRCLDNQKR","CHIWOO","CHIWOO");
 	stmt = conn.createStatement();
 	
+	content.replaceAll("\r\n", "<br>");
+	
 	sql = "INSERT INTO D_BOARD VALUES ((SELECT MAX(NUM) + 1 FROM D_BOARD), '익명', "+
 	" '"+title+"', '"+content+"', 0, SYSTIMESTAMP)";
 	

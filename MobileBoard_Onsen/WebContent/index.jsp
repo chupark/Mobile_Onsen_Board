@@ -190,11 +190,12 @@
 		rset = stmt.executeQuery(sql);
 		
 		while(rset.next()){
+			System.out.println(rset.getString(3).replaceAll("\r\n", ""));
 			//String aa = rset.getString(6);
 		%>							<!-- json 형태로 전송한다... 내용은? 쭉 아래에보면 파라미터 추가 가능함 -->
 	    <ons-card onclick="fn.pushPage({'id': 'pullHook.html', 
 		    						 'title': '<%=rset.getString(2)%>', 
-		    						 'content': '<%=rset.getString(3)%>',
+		    						 'content': '<%=rset.getString(3).replaceAll("\r\n", "_enter_")%>',
 		    						 'blab' : 'aa'
 			    					})">
 	      <div class="title"><%=rset.getString(2)%></div>
@@ -247,18 +248,22 @@
       <ons-icon id="pull-hook-icon" size="22px" class="pull-hook-content" icon="fa-arrow-down"></ons-icon>
     </ons-pull-hook>
     <ons-card>
-    	<div class="content"></div>
+    	<table width=100% height=78%>
+    		<tr>
+    			<td>
+    				<textarea style="width:100%;height:100%;resize:none;
+    				border:0px" class="content" readonly></textarea>
+    			</td>
+    		</tr>
+    	</table>   	
     </ons-card>
 	<script>
 	
 	</script>
-    <ons-list id="kitten-list">
-      <ons-list-header>Pull to refresh</ons-list-header>
-    </ons-list>
 		<script>
 		      ons.getScriptPage().onInit = function () {
 		        this.querySelector('ons-toolbar div.center').textContent = this.data.title;
-		        this.querySelector('ons-card div.content').textContent = this.data.content;
+		        this.querySelector('ons-card textarea.content').textContent = this.data.content.replace(/_enter_/gi, "\r\n");
 		      }
 		</script>
     <style>
