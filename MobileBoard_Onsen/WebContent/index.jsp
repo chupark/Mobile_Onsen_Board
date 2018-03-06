@@ -300,24 +300,52 @@
   <ons-page id="forms-page">
     <ons-card>
     	<div class="content">
-    		<table border=1 width=100% height=88%>
-    			<tr>
-    				<td width=20% height=10%>
-    					제목
-    				</td>
-    				<td width=80% >
-			    		<input style="width:100%;height:100%" type="text" id=title >
-			    	</td>
-			    </tr>
-			    <tr>
-			    	<td height=90%>
-			    		내용
-			    	</td>
-			    	<td >
-			    		<textarea style="width:100%;height:100%;resize:none"  id=content></textarea>
-			    	</td>
-			    </tr>
-    		</table>
+<script type="text/javascript">
+			$(function() {
+				$('#goSubmit').on('click', function() {
+					var params = $('#insertForm').serialize();
+					$.ajax({
+						url : 'insertdata.jsp',
+						data : params,
+						success : function(data) {
+							var succ = data.trim();
+							if(succ == "Y") {
+								location.href = "index.jsp";
+							} else {
+								alert('실패 : id가 일치하지 않음');
+							}
+						}
+					});
+				});
+			});
+			</script>
+			<form id="insertForm" name="insertForm" method="post">		 	
+	    		<table border=1 width=100% height=88%>
+	    			<tr>
+	    				<td width=20% height=10%>
+	    					제목
+	    				</td>
+	    				<td width=80% >
+				    		<input type="text" id="title" name="title" style="width:100%;height:100%"/>
+				    	</td>
+				    </tr>
+				    <tr>
+				    	<td height=90%>
+				    		내용
+				    	</td>
+				    	<td >
+				    		<textarea id="content" name="content"  
+				    		style="width:100%;height:100%;resize:none"  id=content></textarea>
+				    	</td>
+				    </tr>
+				    <tr>
+				    	<td width=20%></td>
+				    	<td width=80% align=right>
+				    		<input type="button" id="goSubmit" value="게시" />
+				    	</td>
+				    </tr>
+	    		</table>
+	    	</form>
     	</div>
     </ons-card>
 
